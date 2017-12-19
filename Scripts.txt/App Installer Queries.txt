@@ -1,0 +1,36 @@
+## App Installers 180d ###
+
+SELECT --au.uid, 
+  au.mail 
+FROM analytics.users au 
+INNER JOIN rtrbi.browsers b --all browsers
+  ON b.first_uid = au.uid  -- getting the browser with the first login
+INNER JOIN rtrbi.browser_device bd -- gets the device associated with the browser (
+   ON bd.browser_id = b.browser_id 
+   AND bd.device_id = 23 
+--INNER JOIN rtrbi.devices d
+--  ON bd.device_id = d.device_id
+--  AND device_type = 'app'
+   AND b.first_seen >= CURRENT_DATE - '180 days'::INTERVAL
+GROUP BY 1
+--, 2
+    ;
+
+
+
+
+## APP INSTALLERS ALL TIME ## 
+
+SELECT --au.uid, 
+  au.mail 
+FROM analytics.users au 
+INNER JOIN rtrbi.browsers b --all browsers
+  ON b.first_uid = au.uid  -- getting the browser with the first login
+INNER JOIN rtrbi.browser_device bd -- gets the device associated with the browser (
+   ON bd.browser_id = b.browser_id 
+   AND bd.device_id = 23 
+--INNER JOIN rtrbi.devices d
+--  ON bd.device_id = d.device_id
+--  AND device_type = 'app'
+GROUP BY 1
+--, 2
