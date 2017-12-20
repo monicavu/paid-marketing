@@ -1,0 +1,8 @@
+--Current Unlimited members who have been in for 6 months and longer
+SELECT mail
+FROM etl.queue_membership q
+JOIN analytics.users au
+  ON q.user_id = au.uid
+WHERE current_date BETWEEN queue_start AND COALESCE(queue_cancel_date,queue_end_date)
+AND term_count >= 6-- in it for 6 months and longer
+;
