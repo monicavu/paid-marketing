@@ -1,0 +1,11 @@
+--customers with 5 orders or more
+SELECT mail,
+  COUNT(DISTINCT order_id)
+FROM rtrbi.v_ot_orderdata ot
+JOIN analytics.users au
+  ON ot.uid = au.uid
+WHERE ot.order_date >= '2017-09-20'
+AND is_classic -- classic orders
+GROUP BY 1
+HAVING COUNT(DISTINCT order_id) >= 5 -- can change this total order number cut off
+;
