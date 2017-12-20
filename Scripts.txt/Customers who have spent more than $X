@@ -1,0 +1,11 @@
+--In last 3 months, customers who have spent more than 500
+SELECT mail,
+  SUM(standard_sales - credits_redeemed_amount) as amount_spent
+FROM rtrbi.v_ot_orderdata ot
+JOIN analytics.users au
+  ON ot.uid = au.uid
+WHERE ot.order_date >= '2017-09-20'
+AND is_classic -- classic orders
+GROUP BY 1
+HAVING SUM(standard_sales - credits_redeemed_amount) >= 500 --can change this total spent number
+;
